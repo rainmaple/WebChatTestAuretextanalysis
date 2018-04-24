@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>首页</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="css/chat.css">
+	</head>
+	<body>
+		<input type="text" id ="texta">
+		</input>
+		<button id="fasong">发送</button>
+	</body>
+	<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+	<script>
+		$("#fasong").click(function () {
+			var textContent = $("#texta").val().replace(/[\n\r]/g,"")
+        	alert(textContent);
+        	var parm = {
+				news :textContent
+			};
+                 $.ajax(
+                 {
+                      url: "Process",
+                        type: "POST",
+                        contentType: "application/x-www-form-urlencoded",
+                        data: parm ,
+                        success: function (data) {
+                        alert("success");
+                 },
+                        error: function (xhr, status, p3, p4) {
+                        var err = "Error " + " " + status + " " + p3;
+                        if (xhr.responseText && xhr.responseText[0] == "{")
+                            err = JSON.parse(xhr.responseText).message;
+                            alert(err);
+                        }
+                });
+        });
+
+	</script>
+
+
+
+</html>
